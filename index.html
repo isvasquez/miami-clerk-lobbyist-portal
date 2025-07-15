@@ -212,17 +212,17 @@
         <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 w-full">
                 <!-- Logo only, no text -->
-                <a href="http://www.miamigov.com/" class="flex items-center flex-shrink-0">
-                    <img src="path/to/your/logo.png" alt="City of Miami Logo" class="h-10 w-auto" style="max-width: 120px;">
+                <a href="http://www.miami.gov/" class="flex items-center flex-shrink-0">
+                    <img src="../../images/logo/CITY SEAL-Mayor BG_transparent.png" alt="City of Miami Logo" class="h-16 w-auto" style="max-width: 120px;">
                 </a>
                 
                 <!-- Desktop Navigation Menu -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="http://www.miamigov.com/" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                    <a href="http://egov.ci.miami.fl.us/directory/citydirectory.aspx" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Directory</a>
-                    <a href="http://www.miamigov.com/City_Officials" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Officials</a>
+                    <a href="http://www.miami.gov/" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                    <a href="https://imiami.miamigov.com/OA_HTML/OA.jsp?page=/xxcmia/oracle/apps/per/external/directory/webui/XxcmiahrExtDirPG" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Directory</a>
+                    <a href="https://www.miami.gov/My-Government/City-Officials" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Officials</a>
                     <a href="http://miamifl.iqm2.com/Citizens/Default.aspx" target="_blank" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Agendas</a>
-                    <a href="https://archive.miami.gov/employeerel/pages/jobs/Job%20Openings.asp" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Employment</a>
+                    <a href="https://www.miami.gov/Careers-Jobs/City-Jobs/Apply-for-a-Job-with-the-City-View-Job-Openings" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Employment</a>
                 </nav>
                 
                 <!-- Right side: toggle and menu -->
@@ -249,19 +249,11 @@
         <!-- Mobile Menu -->
         <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" x-transition class="md:hidden" x-cloak>
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="http://www.miamigov.com/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
-                <a href="http://egov.ci.miami.fl.us/directory/citydirectory.aspx" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Directory</a>
-                <a href="http://www.miamigov.com/City_Officials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Officials</a>
+                <a href="http://www.miami.gov/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
+                <a href="https://imiami.miamigov.com/OA_HTML/OA.jsp?page=/xxcmia/oracle/apps/per/external/directory/webui/XxcmiahrExtDirPG" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Directory</a>
+                <a href="https://www.miami.gov/My-Government/City-Officials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Officials</a>
                 <a href="http://miamifl.iqm2.com/Citizens/Default.aspx" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Agendas</a>
-                <a href="https://archive.miami.gov/employeerel/pages/jobs/Job%20Openings.asp" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Employment</a>
-                <!-- Mobile dark mode toggle -->
-                <div class="flex items-center mt-3">
-                    <label for="darkmode-toggle-mobile" class="mr-2 text-base select-none" style="color: #000;">Darkmode</label>
-                    <label class="switch">
-                        <input id="darkmode-toggle-mobile" type="checkbox" @change="toggleDarkMode()" :checked="isDarkMode">
-                        <span class="slider"></span>
-                    </label>
-                </div>
+                <a href="https://www.miami.gov/Careers-Jobs/City-Jobs/Apply-for-a-Job-with-the-City-View-Job-Openings" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Employment</a>
             </div>
         </div>
     </header>
@@ -334,7 +326,7 @@
 
                     <h2 class="text-3xl font-bold text-gray-800 mb-6">Active Registrations & Issues</h2>
                     <ul class="space-y-3">
-                        <li><a href="../../Docs/LOBBYIST/2025/ActiveRegistration&Issues_07-02-2025.pdf" target="_blank" class="list-item-link"><strong>2025 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2025/ActiveRegistration&Issues_06-06-2025.pdf" target="_blank" class="list-item-link"><strong>2025 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
                         <li><a href="../../Docs/LOBBYIST/2024/ActiveRegistration&Issues-12-18-2024.pdf" target="_blank" class="list-item-link"><strong>2024 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
                         <li><a href="../../Docs/LOBBYIST/2023/ActiveRegistration&Issues-12132023.pdf" target="_blank" class="list-item-link"><strong>2023 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
                         <li><a href="../../Docs/LOBBYIST/2022/ActiveRegistration&Issues12162022.pdf" target="_blank" class="list-item-link"><strong>2022 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
@@ -435,8 +427,11 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">City Clerk's Office</h3>
                     <p class="text-gray-400 text-sm">
-                        Serving the public with integrity and transparency in government operations. 
-                        Providing access to public records, elections, and lobbyist information.
+                         To capture and archive public records accurately while 
+						making them available to the public as quickly and broadly as 
+						possible, and to safeguard the integrity of the election 
+						process by applying technology and improved business 
+						processes.
                     </p>
                 </div>
                 <div>
@@ -448,15 +443,7 @@
                         <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Resources</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">City Directory</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Commission Agendas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">City Ordinances</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Legislative Hub</a></li>
-                    </ul>
-                </div>
+        
                 <div>
                     <h4 class="font-semibold mb-4">Accessibility</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
@@ -467,9 +454,9 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                <p>&copy; 2024 City of Miami. All rights reserved.</p>
+                <p>&copy; <span x-data x-text="new Date().getFullYear()"></span> City of Miami. All rights reserved.</p>
             </div>
         </div>
     </footer>
 </body>
-</html> 
+</html>     
