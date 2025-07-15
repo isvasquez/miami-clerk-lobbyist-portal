@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobbyist Information - City of Miami Clerk's Office</title>
+
+    <!-- Tailwind CSS for styling -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+
+    <!-- Alpine.js for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Google Fonts: Inter & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Define custom fonts for Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark mode styles */
+        body.dark {
+            background-color: #111827; /* Dark gray background */
+            color: #f9fafb;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+        }
+        
+        /* Custom styles for Alpine.js transitions */
+        [x-cloak] { display: none !important; }
+        
+        .list-item-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #f9fafb; /* bg-gray-50 */
+            border-radius: 0.5rem; /* rounded-lg */
+            border: 1px solid #e5e7eb;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        
+        .list-item-link:hover {
+            background-color: #f3f4f6; /* hover:bg-gray-100 */
+            border-color: #d1d5db;
+        }
+        
+        /* Dark mode list item styles */
+        body.dark .list-item-link {
+            background-color: #374151; /* bg-gray-700 */
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+        
+        body.dark .list-item-link:hover {
+            background-color: #4b5563; /* hover:bg-gray-600 */
+            border-color: #6b7280;
+        }
+        
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark .dark-mode-toggle {
+            background: linear-gradient(45deg, #1f2937, #374151);
+        }
+        
+        /* Dark mode header */
+        body.dark header {
+            background-color: #1f2937 !important;
+            border-bottom-color: #374151 !important;
+        }
+        
+        /* Dark mode main container */
+        body.dark .bg-white {
+            background-color: #1f2937 !important;
+        }
+        
+        /* Dark mode text colors */
+        body.dark .text-gray-800 {
+            color: #f9fafb !important;
+        }
+        
+        body.dark .text-gray-600 {
+            color: #d1d5db !important;
+        }
+        
+        body.dark .text-gray-500 {
+            color: #9ca3af !important;
+        }
+        
+        body.dark .text-gray-700 {
+            color: #d1d5db !important;
+        }
+        
+        body.dark .text-gray-900 {
+            color: #f9fafb !important;
+        }
+        
+        /* Dark mode background colors */
+        body.dark .bg-gray-100 {
+            background-color: #374151 !important;
+        }
+        
+        body.dark .bg-gray-200 {
+            background-color: #4b5563 !important;
+        }
+        
+        body.dark .bg-gray-50 {
+            background-color: #374151 !important;
+        }
+        
+        /* Dark mode border colors */
+        body.dark .border-gray-200 {
+            border-color: #374151 !important;
+        }
+        
+        body.dark .border {
+            border-color: #4b5563 !important;
+        }
+        
+        /* Dark mode shadow */
+        body.dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        body.dark .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        /* Switch toggle styles */
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 48px;
+          height: 28px;
+        }
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #374151;
+          transition: .4s;
+          border-radius: 34px;
+        }
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 22px;
+          width: 22px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+        }
+        .switch input:checked + .slider {
+          background-color: #2563eb;
+        }
+        .switch input:checked + .slider:before {
+          transform: translateX(20px);
+        }
+        
+        body.dark [for="darkmode-toggle"],
+        body.dark [for="darkmode-toggle-mobile"] {
+          color: #f3f4f6 !important;
+        }
+        
+        /* Fallback header style if Tailwind fails to load */
+        header, .container { box-sizing: border-box; }
+        header { background: #fff; border-bottom: 1px solid #eee; padding: 0.5em 1em; }
+        header a img { display: inline-block; vertical-align: middle; }
+        header .switch { vertical-align: middle; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Responsive Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40" x-data="{ mobileMenuOpen: false, isDarkMode: false }" x-init="isDarkMode = localStorage.getItem('darkMode') === 'true'; if (isDarkMode) { document.body.classList.add('dark'); } window.toggleDarkMode = function() { isDarkMode = !isDarkMode; if (isDarkMode) { document.body.classList.add('dark'); localStorage.setItem('darkMode', 'true'); } else { document.body.classList.remove('dark'); localStorage.setItem('darkMode', 'false'); } }">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 w-full">
+                <!-- Logo only, no text -->
+                <a href="http://www.miamigov.com/" class="flex items-center flex-shrink-0">
+                    <img src="path/to/your/logo.png" alt="City of Miami Logo" class="h-10 w-auto" style="max-width: 120px;">
+                </a>
+                
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="http://www.miamigov.com/" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                    <a href="http://egov.ci.miami.fl.us/directory/citydirectory.aspx" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Directory</a>
+                    <a href="http://www.miamigov.com/City_Officials" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">City Officials</a>
+                    <a href="http://miamifl.iqm2.com/Citizens/Default.aspx" target="_blank" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Agendas</a>
+                    <a href="https://archive.miami.gov/employeerel/pages/jobs/Job%20Openings.asp" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors">Employment</a>
+                </nav>
+                
+                <!-- Right side: toggle and menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle Switch -->
+                    <div class="flex items-center">
+                        <label for="darkmode-toggle" class="mr-2 text-base select-none hidden sm:block" style="color: #000;">Darkmode</label>
+                        <label class="switch">
+                            <input id="darkmode-toggle" type="checkbox" @change="toggleDarkMode()" :checked="isDarkMode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                            <span class="sr-only">Open main menu</span>
+                            <svg x-show="!mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                            <svg x-show="mobileMenuOpen" x-cloak class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" x-transition class="md:hidden" x-cloak>
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="http://www.miamigov.com/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Home</a>
+                <a href="http://egov.ci.miami.fl.us/directory/citydirectory.aspx" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Directory</a>
+                <a href="http://www.miamigov.com/City_Officials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">City Officials</a>
+                <a href="http://miamifl.iqm2.com/Citizens/Default.aspx" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Agendas</a>
+                <a href="https://archive.miami.gov/employeerel/pages/jobs/Job%20Openings.asp" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Employment</a>
+                <!-- Mobile dark mode toggle -->
+                <div class="flex items-center mt-3">
+                    <label for="darkmode-toggle-mobile" class="mr-2 text-base select-none" style="color: #000;">Darkmode</label>
+                    <label class="switch">
+                        <input id="darkmode-toggle-mobile" type="checkbox" @change="toggleDarkMode()" :checked="isDarkMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl bg-white rounded-lg shadow-lg my-8">
+
+        <!-- Main Content Area -->
+        <main class="p-6 md:p-8" x-data="{ activeTab: 'registrations', isDarkMode: false }" x-init="
+            // Check for saved dark mode preference or default to light mode
+            isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark');
+            }
+            
+            // Function to toggle dark mode
+            window.toggleDarkMode = function() {
+                isDarkMode = !isDarkMode;
+                if (isDarkMode) {
+                    document.body.classList.add('dark');
+                    localStorage.setItem('darkMode', 'true');
+                } else {
+                    document.body.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'false');
+                }
+            }
+            
+            // Ensure activeTab is properly initialized
+            if (!activeTab) {
+                activeTab = 'registrations';
+            }
+        ">
+
+            <!-- Welcome Title -->
+            <div class="text-center mb-12">
+                 <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Lobbyist Information</h1>
+                 <p class="text-lg text-gray-600 max-w-3xl mx-auto mt-4">
+                    Access public records and information about lobbyist registrations and activities in the City of Miami Clerk's Office.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="border-b border-gray-200 mb-8">
+                <nav class="-mb-px flex flex-wrap justify-center gap-x-4 sm:gap-x-6" aria-label="Tabs">
+                    <button @click="activeTab = 'registrations'" :class="{'border-blue-600 text-blue-700': activeTab === 'registrations', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'registrations'}" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-colors">Active Registrations</button>
+                    <button @click="activeTab = 'resources'" :class="{'border-blue-600 text-blue-700': activeTab === 'resources', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'resources'}" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-colors">Additional Resources</button>
+                    <button @click="activeTab = 'contact'" :class="{'border-blue-600 text-blue-700': activeTab === 'contact', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': activeTab !== 'contact'}" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm sm:text-base transition-colors">Contact Information</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div>
+                <!-- Active Registrations Tab -->
+                <div x-show="activeTab === 'registrations'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
+                    
+                    <!-- Yellow Warning Notice -->
+                    <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="text-yellow-800 dark:text-yellow-200 font-medium">Database Maintenance Notice</p>
+                                <p class="text-yellow-700 dark:text-yellow-300 text-sm mt-1">
+                                    The Lobbyist Search / Public Database is currently undergoing maintenance. 
+                                    During this time, please use the links below to search for lobbyist information.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Active Registrations & Issues</h2>
+                    <ul class="space-y-3">
+                        <li><a href="../../Docs/LOBBYIST/2025/ActiveRegistration&Issues_07-02-2025.pdf" target="_blank" class="list-item-link"><strong>2025 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2024/ActiveRegistration&Issues-12-18-2024.pdf" target="_blank" class="list-item-link"><strong>2024 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2023/ActiveRegistration&Issues-12132023.pdf" target="_blank" class="list-item-link"><strong>2023 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2022/ActiveRegistration&Issues12162022.pdf" target="_blank" class="list-item-link"><strong>2022 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2021/ActiveRegistration&Issues12-17-2021.pdf" target="_blank" class="list-item-link"><strong>2021 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2020/ActiveRegistration&Issues12-2-2020.pdf" target="_blank" class="list-item-link"><strong>2020 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2019/ActiveRegistration&Issues12-30-19.pdf" target="_blank" class="list-item-link"><strong>2019 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2018/ActiveRegistration&Issues12-21-18.pdf" target="_blank" class="list-item-link"><strong>2018 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2017/Active%20Registration%20&Issues11-13-17.pdf" target="_blank" class="list-item-link"><strong>2017 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="../../Docs/LOBBYIST/2016/Active_Registration_and_Issues_12-16-16.pdf" target="_blank" class="list-item-link"><strong>2016 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                        <li><a href="2015ActiveRegistrationandIssues.pdf" target="_blank" class="list-item-link"><strong>2015 Active Registration & Issues</strong><span class="text-blue-600 font-semibold">View PDF</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Additional Resources Tab -->
+                <div x-show="activeTab === 'resources'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Additional Resources</h2>
+                    <ul class="space-y-3">
+                        <li><a href="https://www.miamigov.com/Services/Doing-Business/Lobbyist-Information" target="_blank" class="list-item-link"><strong>More information on Lobbying in the City of Miami</strong><span class="text-blue-600 font-semibold">Visit Site</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information Tab -->
+                <div x-show="activeTab === 'contact'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Contact Us</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">Phone</p>
+                                <a href="tel:3052505360" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                    (305)-250-5360
+                                </a>
+                                <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">TTY 711 (Florida Relay Service)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">Fax</p>
+                                <a href="tel:3058581610" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                    (305) 858-1610
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">Email</p>
+                                <a href="mailto:clerks@miamigov.com" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                    clerks@miamigov.com
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.499-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.499.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">Website</p>
+                                <a href="https://www.miamigov.com/Government/Departments-Organizations/City-Clerks-Office" target="_blank" 
+                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                    Office of the City Clerk
+                                </a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="font-medium text-gray-900 dark:text-white">Location</p>
+                                <p class="text-gray-700 dark:text-gray-300">Office of the City Clerk</p>
+                                <p class="text-gray-700 dark:text-gray-300">3500 Pan American Drive</p>
+                                <p class="text-gray-700 dark:text-gray-300">Miami, FL 33133</p>
+                                <a href="https://maps.google.com/?q=3500+Pan+American+Drive+Miami+FL+33133" target="_blank" 
+                                   class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors text-sm">
+                                    View Map
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white mt-16">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">City Clerk's Office</h3>
+                    <p class="text-gray-400 text-sm">
+                        Serving the public with integrity and transparency in government operations. 
+                        Providing access to public records, elections, and lobbyist information.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Elections</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Meetings</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Passport Services</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">City Directory</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Commission Agendas</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">City Ordinances</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Legislative Hub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Accessibility</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">ADA Compliance</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Text-Only Version</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 City of Miami. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
